@@ -1,15 +1,18 @@
 ---
 emoji: 🧢
 title: 개츠비(Gatsby) 블로그 만들기 1일차
-date: '2023-07-22 01:00:00'
+date: '2023-07-21 01:00:00'
 author: DolmaengC
 tags: blog gatsby theme 개츠비 테마
-categories: 블로그 featured
+categories: 블로그
 ---
 
 gatsby 블로그를 만들어봤습니다!!
 
-블로그 만드는 방법은 https://hislogs.com/make-gatsby-blog/ 여기를 참고했습니다.
+블로그 만드는 방법은 
+https://zoomkoding.com/gatsby-github-blog/
+https://hislogs.com/make-gatsby-blog/ 
+두 블로그 참고했습니다.
 
 로컬로 실행 시켜보니 react-helmet이 없다는 애러가 나와서 
  ![react-helmet-error.png](react-helmet-error.png)
