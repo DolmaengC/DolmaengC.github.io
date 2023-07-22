@@ -436,8 +436,6 @@ Masked Multi-head attention (핑크색 블럭): 인코더에서는 사용되지 
   - [SEP] : 두개의 문장을 구분하기 위한 목적
 
 
-
-
 ```toc
 ```
 

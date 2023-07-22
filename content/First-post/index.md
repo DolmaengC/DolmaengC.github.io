@@ -38,5 +38,4 @@ https://hislogs.com/make-gatsby-blog/
 npm run deploy
 ```
 
-```toc
-```
+
