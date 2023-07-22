@@ -4,7 +4,7 @@ import { navigate } from 'gatsby';
 import Layout from '../layout';
 import Seo from '../components/seo';
 import Post from '../models/post';
-//import Bible from '../models/bible';
+import Bible from '../models/bible';
 import CategoryPageHeader from '../components/category-page-header';
 import PostTabs from '../components/post-tabs';
 
