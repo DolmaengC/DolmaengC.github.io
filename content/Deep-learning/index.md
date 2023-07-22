@@ -193,11 +193,13 @@ R-CNN in 2014, Fast R-CNN in 2015, Faster R-CNN in 2016
   - 각 원소의 비중을 계산하기 위해서 현재 LSTM층에 입력되는 ht-1과 단어t의 정보(xt) 인자로 갖는 sigmoid 함수를 사용
   - ct원소들의 긍부정 역할을 구분하기 위해 tanh 적용
 
-<img width="868" alt="스크린샷 2023-07-21 오전 10 20 06" src="https://github.com/DolmaengC/DolmaengC.github.io/assets/107832431/16a9ca88-8e1e-45fb-82c8-6170ec975bb3">
+
+![structure-LSTM.png](structure-LSTM.png)
+
 
 ## Bidirectional LSTM
 
-<img width="890" alt="스크린샷 2023-07-21 오전 10 22 09" src="https://github.com/DolmaengC/DolmaengC.github.io/assets/107832431/466927bc-3d09-41a4-ae18-10c162481736">
+![bidirectional-LSTM.png](bidirectional-LSTM.png)
 
 
 
@@ -215,8 +217,7 @@ R-CNN in 2014, Fast R-CNN in 2015, Faster R-CNN in 2016
 
     - GRU는 LSTM 보다는 간단한 구조
       - 속도는 빠느라 정확도가 떨어짐
-
-<img width="838" alt="스크린샷 2023-07-21 오전 10 09 57" src="https://github.com/DolmaengC/DolmaengC.github.io/assets/107832431/1b06c03f-76f3-4410-b078-c3c334d4cfae">
+![structure-GRU.png](structure-GRU.png)
 
 
 
@@ -230,13 +231,11 @@ R-CNN in 2014, Fast R-CNN in 2015, Faster R-CNN in 2016
   - Encoder-decoder 구조
   - Encoder의 역할
     - 입력뙨 텍스트 데이터를 숫자 형태로 혹은 벡터 형태로 변환
-
-  <img width="798" alt="스크린샷 2023-07-21 오전 11 06 12" src="https://github.com/DolmaengC/DolmaengC.github.io/assets/107832431/610972e5-86b6-4a31-bf05-571b920d2c8c">
+![encoder.png](encoder.png)
 
   - Decoder의 역할
     - Encoder에 의해 숫자로 변경된 정보를 다른 형태의 텍스트 데이터로 변환
-
-  <img width="1261" alt="스크린샷 2023-07-21 오전 11 06 37" src="https://github.com/DolmaengC/DolmaengC.github.io/assets/107832431/af3853a1-3362-4ade-ac83-214813756795">
+![decoder.png](decoder.png)
 
   - Encoder와 Decoder를 위해 순환신경망 기반 모형 사용 가능 (예, RNN)
     - 첫번째 RNN이 encoder 역할, 두번째 RNN이 decoder 여할
@@ -276,8 +275,6 @@ R-CNN in 2014, Fast R-CNN in 2015, Faster R-CNN in 2016
   - 그렇다면 어떻게 하면 되는가?
     - Encoder 부분에서 생성되는 각 단어에 대한 hidden state 정보를 모두 decoder로 전달
     - 벡터정보들을 쌓아서 행렬로 만들어서 전달
-
-<img width="1298" alt="스크린샷 2023-07-21 오후 12 47 34" src="https://github.com/DolmaengC/DolmaengC.github.io/assets/107832431/d27533ad-e144-4a43-a557-c29066f9a241">
 
 
 
@@ -324,41 +321,39 @@ Transformer에서의 self-attention (or attention)
 
   - 단계1 : 입력된 각 단어들에 대해서 Query, Key, Value 벡터를 계산
     - 이떄 각각의 가중치 행렬이 사용됨 
+![qkv2.png](qkv2.png)
+![qkv.png](qkv.png)
 
-  <img width="755" alt="스크린샷 2023-07-21 오후 1 20 33" src="https://github.com/DolmaengC/DolmaengC.github.io/assets/107832431/d5d77efa-74d0-48ff-8dd1-6f1380076e8a">
-
-  <img width="650" alt="스크린샷 2023-07-21 오후 1 21 40" src="https://github.com/DolmaengC/DolmaengC.github.io/assets/107832431/108fbabf-ef05-4249-82e6-90873b69710e">
 
   - 단계2 : Attention score 계산
     - Query를 이용하여 각 Key들하고의 유사한 정도를 계산 -> 내적 연산
 
   - 단계3 : Attention score를 이용하여 가중치 계산
     - Softmax() 함수를 적용
-
-  <img width="707" alt="스크린샷 2023-07-21 오후 1 22 20" src="https://github.com/DolmaengC/DolmaengC.github.io/assets/107832431/7b1d89bf-9dab-447f-bba4-061d39e93eae">
+![attention-score.png](attention-score.png)
 
   - 단계4 : 가중치를 Value 벡터에 곱한다.
-
-  <img width="703" alt="스크린샷 2023-07-21 오후 1 22 40" src="https://github.com/DolmaengC/DolmaengC.github.io/assets/107832431/988f1dbc-a832-4e2f-8aa9-1de8a355ad9b">
+![value-vector.png](value-vector.png)
 
   - 최종 결과물
     - 가중치가 곱해진 value vector들의 합 
 
-<img width="805" alt="스크린샷 2023-07-21 오후 1 22 57" src="https://github.com/DolmaengC/DolmaengC.github.io/assets/107832431/1992c9bb-8aff-47dc-b597-c879559570ac">
+![self-attention.png](self-attention.png)
 
 
 
 ### Transformer
 
-<img width="826" alt="스크린샷 2023-07-21 오후 5 16 41" src="https://github.com/DolmaengC/DolmaengC.github.io/assets/107832431/98440e40-cada-4244-ad09-91514a5346c1">
+![transformer.png](transformer.png)
 
-<img width="776" alt="스크린샷 2023-07-21 오후 5 21 59" src="https://github.com/DolmaengC/DolmaengC.github.io/assets/107832431/96e15b3f-be72-42b5-9b33-7598da712a99">
+
+![multi-head-attention.png](multi-head-attention.png)
 
 Masked Multi-head attention (핑크색 블럭): 인코더에서는 사용되지 않음
 
 ---
 
-<img width="690" alt="스크린샷 2023-07-21 오후 5 35 08" src="https://github.com/DolmaengC/DolmaengC.github.io/assets/107832431/d3109c9d-13ee-4a3d-8bf5-3f05b550a605">
+![encoder2.png](encoder2.png)
 
 - Position-wise feed-forward network
   - 2개 이상의 fully connected layer (혹은 dense layer)로 구성
@@ -368,8 +363,7 @@ Masked Multi-head attention (핑크색 블럭): 인코더에서는 사용되지 
 ---
 
 
-
-<img width="789" alt="스크린샷 2023-07-21 오후 5 35 27" src="https://github.com/DolmaengC/DolmaengC.github.io/assets/107832431/c1ec143e-9207-4838-974f-491be8326eaf">
+![addnormlayer.png](addnor  mlayer.png)
 
 ---
 
@@ -434,7 +428,7 @@ Masked Multi-head attention (핑크색 블럭): 인코더에서는 사용되지 
   - BERTLARGE (L=24, H=1024, A=16, Total Parameters=340M)
   - L = encoder block의 수, H = 임베딩 벡터 또는 Hidden state 벡터의 차원의 수, A = multi-head attention에서 사용된 attentions의 수
 
-![스크린샷 2023-07-21 오후 10.06.19](/Users/choejunhyeog/Desktop/스크린샷 2023-07-21 오후 10.06.19.png)
+![bert.png](bert.png)
 
 - 새로운 토큰
   - [CLS] : 입력 시퀀스 데이터 전체의 정보를 반영하기 위한 토큰
@@ -452,21 +446,6 @@ Masked Multi-head attention (핑크색 블럭): 인코더에서는 사용되지 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
  
 
- 
+  <Utterances repo='DolmaengC/DolmaengC.github.io' path="path" />

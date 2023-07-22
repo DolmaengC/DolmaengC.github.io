@@ -66,6 +66,7 @@ UniAPR은 모든 바이트코드 혹은 소스코드 레벨의 APR기술들을 �
 
 <img width="875" alt="스크린샷 2023-01-12 오전 10 14 02" src="https://user-images.githubusercontent.com/107832431/212212894-15147d7b-d1b0-43fa-9304-05dace8bae25.png">
 
+
 1. UniAPR은 먼저 기존 APR 도구를 활용하여 소스코드 레벨 패치를 만든다(❶). 
 
 2. UniAPR이 증분 컴파일을 수행하여 각 패치별로 패치된 소스 파일을 바이트코드 파일로 컴파일한다(❷).
@@ -111,11 +112,4 @@ UniAPR은 모든 바이트코드 혹은 소스코드 레벨의 APR기술들을 �
 
 
 
-
-
-
-
-
-
-
-
+ <Utterances repo='DolmaengC/DolmaengC.github.io' path="path" />

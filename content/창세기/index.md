@@ -9,9 +9,6 @@ categories: Bible
 
 sadfsadfa
 
-<Post>
-  <article>blabla~</article>
-  <footer>
-    <Utterances repo='DolmaengC/DolmaengC.github.io' path="path" />
-  </footer>
-</Post>
+   
+
+ <Utterances repo='DolmaengC/DolmaengC.github.io' path="path" />

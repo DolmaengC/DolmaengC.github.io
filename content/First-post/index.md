@@ -37,3 +37,6 @@ https://hislogs.com/make-gatsby-blog/
 ```
 npm run deploy
 ```
+
+
+ <Utterances repo='DolmaengC/DolmaengC.github.io' path="path" />
