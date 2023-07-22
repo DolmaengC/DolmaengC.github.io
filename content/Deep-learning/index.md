@@ -438,14 +438,6 @@ Masked Multi-head attention (핑크색 블럭): 인코더에서는 사용되지 
 
 
 
+```toc
+```
 
-
-
-
-
-
-
-
- 
-
-  <Utterances repo='DolmaengC/DolmaengC.github.io' path="path" />
