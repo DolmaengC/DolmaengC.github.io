@@ -2,11 +2,11 @@ module.exports = {
   title: `DolmaengC`,
   description: `돌맹씨의 개발일기`,
   language: `ko`, // `ko`, `en` => currently support versions for Korean and English
-  siteUrl: `https://dolmaengc.github.io/`,
+  siteUrl: `https://dolmaengc.github.io/gatsby-blog`,
   ogImage: `/og-image.png`, // Path to your in the 'static' folder
   comments: {
     utterances: {
-      repo: `DolmaengC/DolmaengC.github.io`, // `zoomkoding/zoomkoding-gatsby-blog`,
+      repo: `DolmaengC/gatsby-blog`, // `zoomkoding/zoomkoding-gatsby-blog`,
     },
   },
   ga: '0', // Google Analytics Tracking ID
@@ -18,9 +18,9 @@ module.exports = {
       thumbnail: 'sample.png', // Path to the image in the 'asset' folder
     },
     social: {
-      github: ``, // `https://github.com/zoomKoding`,
+      github: `https://github.com/DolmaengC`, // `https://github.com/zoomKoding`,
       linkedIn: ``, // `https://www.linkedin.com/in/jinhyeok-jeong-800871192`,
-      email: ``, // `zoomkoding@gmail.com`,
+      email: `choijh4161@gmail.com`, // `zoomkoding@gmail.com`,
     },
   },
 
@@ -79,7 +79,7 @@ module.exports = {
         thumbnailUrl: 'blog.png',
         links: {
           post: '/gatsby-starter-zoomkoding-introduction',
-          github: 'https://github.com/DolmaengC/DolmaengC.github.io',
+          github: 'https://github.com/DolmaengC/gatsby-blog',
           demo: 'https://www.zoomkoding.com',
         },
       },
