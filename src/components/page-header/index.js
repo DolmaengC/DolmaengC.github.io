@@ -39,7 +39,7 @@ function PageHeader({ siteTitle }) {
               <Link className="link" to="/posts">
                 posts
               </Link>
-              <Link className="link" to="/">
+              <Link className="link" to="/jekyll">
                 others
               </Link>
               <PostSearch
