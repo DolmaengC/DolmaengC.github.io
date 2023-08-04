@@ -1,17 +1,10 @@
 \---
-
 emoji: 🧢
-
 title: Recoder (A Syntax-guided Edit Decoder for Neural Program Repair)
-
 date: '2023-08-03 22:00:00'
-
 author: DolmaengC
-
 tags: APR 
-
 categories: APR featured
-
 \---
 
 
@@ -168,15 +161,193 @@ Providers : provide choices and estimate their probabilities
 
 ![table1.png](table1.png)
 
+**rule predictor**
+
+- 선택 사항을 제공하고 각 production rule의 확률을 계산
+- Neural component 
+  - 각 생성 규칙에 대한 확률을 할당
+- Logic component
+  - 왼쪽이 해당 non-terminal이 아닌 rule의 확률을 0으로 재설정
+  - 나머지 확률을 정규화
+
+
+
+**subtree locator**
+
+- 선택 사항을 제공
+- Faulty statement에서 크기가 1보다 큰 각 AST 하위 트리의 확률을 추정
+
+
+
+**tree copier**
+
+- 선택 사항 제공
+- Faulty statement를 둘라싼 method의 크기가 1보다 큰 각 AST subtree의 확률을 추정
+- neural component
+- logic component
+  - root symbol이 확장되는 non-terminal symbol과 다른 subtree의 확룰을 재설정
+
+
+
+**decider**
+
+- 각 provider에 확률을 할당
+- similar logic component
+  - provider가 현재 non-terminal symbol을 담당하지 않을 경우, 확률을 0으로 재설정
+
+
+
+## 3 MODEL ARCHITECTURE
+
+Recoder is based on the syntax guided code generation model, [TreeGen](https://ojs.aaai.org/index.php/AAAI/article/view/6430)
+
+input : a faulty statement and its comtext
+
+output : edits
+
+Beam search (to find the best combination of choices for generating the complete edits)
+
+4 main component
+
+- code reader
+- AST reader
+- tree path reader
+- Edit decoder
+
+
+
+AST reader, tree path reader : TreeGen
+
+Code reader, edit decoder : newly introduced
+
+
+
+![figure7.png](figure7.png)
+
+
+
+### 3.1 Code Reader
+
+input
+
+- AST traversal sequence
+  - a sequence of tokens following the pre-order traversal of the AST
+  - word embedding
+- Tag embedding
+  - Pre-order traversal of the AST
+  - tag
+    1. in the faulty statement
+    2. In the statement before the faulty statement
+    3. In the statement after the faulty statement
+    4. in other statements
+- AST-based Graph
+  - directional graph where the nodes are AST nodes and the edges link a node to each of its children and its sibling
+  - ![figure8.png](figure8.png)
+
+
+
+#### 3.1.1 Self-Attention
+
+- self-attention sub-layer
+  - encoding the AST traversal sequence
+  - [Transformer](https://proceedings.neurips.cc/paper_files/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html) architecture
+    - Capture the long dependency information in the AST
+- Position embedding (represent positional information)
+- multi-head attention layer
+  - capture non-linear features
+  - The single attention layer maps the query Q, the key K, and the value V into a weighted-sum output
+
+
+
+
+#### 3.1.2 Gating Layer
+
+- input : self-attention 레이어의 아웃풋 + 태그 임베딩
+- TreeGen에서 정의된 Gating mechanism이 이 레이어에서 사용되었다.
+
+
+
+#### 3.1.3 Tree Conv Layer
+
+- input : gating layer의 아웃풋 + AST-based graph
+
+- GNN layer
+- encode the neighbors
+
+
+
+### 3.2 AST Reader
+
+- Encode the partial generated AST of the edit (TreeGen)
+- Rule requence
+  - represented as real-value vectors
+  - fed into a self-attention layer
+
+
+
+### 3.3 Tree Path Reader
+
+- Encode the information of the non-terminal node to be expanded (TreeGen)
+- Represent the non-terminal node as a path from the root to the node to be expanded
+- Transforms the nodes in this path into real-value vectors
+- Two fully-connected layers are followed to extract features for edit decoder
+
+
+
+### 3.4 Edit Decoder
+
+Input : tree path reader의 아웃풋
+
+output : the probability of choices for diferent non-terminals
+
+
+
+#### 3.4.1 Provider
+
+**Rule Predictor**
+
+- Estimate the probability of each production rule in the grammar of edits
+- Nueral component (a fully-connected layer)
+- Normalized via softmax
+- Invalid rules whose left-hand side is not the corresponding non-terminal are not allowed
+- The logic component resets the output of the fully-connected layer to -∞.
+
+
+
+**Tree Copier**
+
+- Designed for any non-terminal symbol in the grammer of edits to choose a subtree in the local context
+- Nueral component (a pointer network)
+- The logic component resets  𝜽 to −∞ if the root symbol of the corresponding subtree is different from the symbol being expanded.
+- Normalized via softmax
+
+
+
+**Subtree Locator**
+
+output : an ID of the subtree in the faulty statement for not-terminal symbol, Modify, in the grammar of edits.
+
+
+
+#### 3.4.2 Decider
+
+- Estimate the probability of using each provider
+- Neural component
+  - input : the output of the tree path reader
+  - output : the probability of using each provider
+  - A fully-connected layer
+- Logic component resets 𝝀 to −∞ if the corresponding provider is not responsible for the symbol being expanded following Table 1.
+- Normalized via softmax
 
 
 
 
 
+### 3.5 Training and Inference
 
 
 
-
+### 3.6 Patch Generation and Validation
 
 
 
