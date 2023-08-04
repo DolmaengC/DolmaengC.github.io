@@ -1,11 +1,11 @@
-\---
+---
 emoji: 🧢
 title: I-GBS 묵상문 (누가복음 15장)
 date: '2023-08-03 23:00:00'
 author: DolmaengC
 tags: 묵상문 bible I-GBS
 categories: bible 
-\---
+---
 
 
 
