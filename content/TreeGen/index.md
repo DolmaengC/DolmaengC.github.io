@@ -1,6 +1,6 @@
 ---
 emoji: 🧢
-title: TreeGen: A Tree-based Transformer Architecture for Code Generation
+title: TreeGen
 date: '2023-08-02 22:00:00'
 author: DolmaengC
 tags: CodeGeneration DL Transformer
