@@ -3,8 +3,8 @@ emoji: 🧢
 title: TreeGen
 date: '2023-08-02 22:00:00'
 author: DolmaengC
-tags: CodeGeneration DL Transformer
-categories: CodeGeneration 
+tags: DL Transformer CodeGeneration
+categories: DL
 ---
 
 

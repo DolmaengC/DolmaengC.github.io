@@ -4,7 +4,7 @@ title: 개츠비(Gatsby) 블로그 만들기 1일차
 date: '2023-07-21 01:00:00'
 author: DolmaengC
 tags: blog gatsby theme 개츠비 테마
-categories: 블로그
+categories: blog
 ---
 
 gatsby 블로그를 만들어봤습니다!!

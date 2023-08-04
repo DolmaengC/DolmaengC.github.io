@@ -4,7 +4,7 @@ title: ERROR 85901  GRAPHQL 목록 기능 추가 중 404 에러
 date: '2023-07-23 02:00:00'
 author: DolmaengC
 tags: bug blog error 404
-categories: bug 블로그
+categories: blog
 ---
 
 [blog](https://dolmaengc.github.io/gatsby-starter-zoomkoding-introduction/)에 의하면 목록을 생성하려면
