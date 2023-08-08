@@ -135,7 +135,7 @@ Recoder는 특정 프로그래밍이 아닌 모든 프로그래밍 언어에 적
 
 - a meta-rule applied to any non-terminal symbol of the host language.
 - add production rule that expands it into a copy operation
-- the nueral network could choose to directly gerate a new subtree or to copy one
+- the neural network could choose to directly gerate a new subtree or to copy one
 - For both insert and modify, they generate a new AST subtree
   - the AST subtree being inserted or modified is not completely original
     - Copy operation is introduced to further reduce the patch space
@@ -182,10 +182,10 @@ Providers : provide choices and estimate their probabilities
 **tree copier**
 
 - 선택 사항 제공
-- Faulty statement를 둘라싼 method의 크기가 1보다 큰 각 AST subtree의 확률을 추정
+- Faulty statement를 둘러싼 method의 크기가 1보다 큰 각 AST subtree의 확률을 추정
 - neural component
 - logic component
-  - root symbol이 확장되는 non-terminal symbol과 다른 subtree의 확룰을 재설정
+  - root symbol이 확장되는 non-terminal symbol과 다른 subtree의 확률을 재설정
 
 
 
@@ -263,7 +263,8 @@ input
 #### 3.1.2 Gating Layer
 
 - input : self-attention 레이어의 아웃풋 + 태그 임베딩
-- TreeGen에서 정의된 Gating mechanism이 이 레이어에서 사용되었다.
+- output : 𝒖𝑖 =Gating(𝒂𝒊,𝒂𝒊,𝒕𝑖).
+- TreeGen에서 정의된 Gating mechanism이 이 레이어에서 사용되었다. (softmax 기반)
 
 
 
@@ -271,15 +272,21 @@ input
 
 - input : gating layer의 아웃풋 + AST-based graph
 
+- output : The encoding of the neighbors is directly added to the input vector
+
 - GNN layer
 - encode the neighbors
+
+![8.png](8.png)
+
+- 𝑊g is the weigh of a fullt -connected layer and A is a normalized adjacency matrix of G
 
 
 
 ### 3.2 AST Reader
 
 - Encode the partial generated AST of the edit (TreeGen)
-- Rule requence
+- Rule sequence
   - represented as real-value vectors
   - fed into a self-attention layer
 
@@ -296,18 +303,18 @@ input
 
 ### 3.4 Edit Decoder
 
-Input : tree path reader의 아웃풋
-
-output : the probability of choices for diferent non-terminals
-
-
-
 #### 3.4.1 Provider
+
+- Input : tree path reader의 아웃풋
+
+- output : the probability of choices for different non-terminals
+
+
 
 **Rule Predictor**
 
 - Estimate the probability of each production rule in the grammar of edits
-- Nueral component (a fully-connected layer)
+- Neural component (a fully-connected layer)
 - Normalized via softmax
 - Invalid rules whose left-hand side is not the corresponding non-terminal are not allowed
 - The logic component resets the output of the fully-connected layer to -∞.
@@ -317,7 +324,7 @@ output : the probability of choices for diferent non-terminals
 **Tree Copier**
 
 - Designed for any non-terminal symbol in the grammer of edits to choose a subtree in the local context
-- Nueral component (a pointer network)
+- Neural component (a pointer network)
 - The logic component resets  𝜽 to −∞ if the root symbol of the corresponding subtree is different from the symbol being expanded.
 - Normalized via softmax
 
@@ -341,15 +348,24 @@ output : an ID of the subtree in the faulty statement for not-terminal symbol, M
 
 
 
+## 5 EXPERIMENTAL RESULTS
+![table2.png](table2.png)
 
+---
 
-### 3.5 Training and Inference
+![table3.png](table3.png)
 
+---
 
+![table4.png](table4.png)
 
-### 3.6 Patch Generation and Validation
+---
+![table5.png](table5.png)
 
+---
+![table6.png](table6.png)
 
+---
 
 
 
