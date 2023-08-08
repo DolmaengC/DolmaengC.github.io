@@ -187,7 +187,7 @@ Key Laboratory of HCST, MoE DCST, Peking University Beijing, China <a href="mail
 <ul>
 <li>a meta-rule applied to any non-terminal symbol of the host language.</li>
 <li>add production rule that expands it into a copy operation</li>
-<li>the nueral network could choose to directly gerate a new subtree or to copy one</li>
+<li>the neural network could choose to directly gerate a new subtree or to copy one</li>
 <li>For both insert and modify, they generate a new AST subtree
 <ul>
 <li>the AST subtree being inserted or modified is not completely original
@@ -265,11 +265,11 @@ Key Laboratory of HCST, MoE DCST, Peking University Beijing, China <a href="mail
 <p><strong>tree copier</strong></p>
 <ul>
 <li>선택 사항 제공</li>
-<li>Faulty statement를 둘라싼 method의 크기가 1보다 큰 각 AST subtree의 확률을 추정</li>
+<li>Faulty statement를 둘러싼 method의 크기가 1보다 큰 각 AST subtree의 확률을 추정</li>
 <li>neural component</li>
 <li>logic component
 <ul>
-<li>root symbol이 확장되는 non-terminal symbol과 다른 subtree의 확룰을 재설정</li>
+<li>root symbol이 확장되는 non-terminal symbol과 다른 subtree의 확률을 재설정</li>
 </ul>
 </li>
 </ul>
@@ -396,12 +396,16 @@ Key Laboratory of HCST, MoE DCST, Peking University Beijing, China <a href="mail
 <h4 id="312-gating-layer" style="position:relative;"><a href="#312-gating-layer" aria-label="312 gating layer permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>3.1.2 Gating Layer</h4>
 <ul>
 <li>input : self-attention 레이어의 아웃풋 + 태그 임베딩</li>
-<li>TreeGen에서 정의된 Gating mechanism이 이 레이어에서 사용되었다.</li>
+<li>output : 𝒖𝑖 =Gating(𝒂𝒊,𝒂𝒊,𝒕𝑖).</li>
+<li>TreeGen에서 정의된 Gating mechanism이 이 레이어에서 사용되었다. (softmax 기반)</li>
 </ul>
 <h4 id="313-tree-conv-layer" style="position:relative;"><a href="#313-tree-conv-layer" aria-label="313 tree conv layer permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>3.1.3 Tree Conv Layer</h4>
 <ul>
 <li>
 <p>input : gating layer의 아웃풋 + AST-based graph</p>
+</li>
+<li>
+<p>output : The encoding of the neighbors is directly added to the input vector</p>
 </li>
 <li>
 <p>GNN layer</p>
@@ -410,10 +414,35 @@ Key Laboratory of HCST, MoE DCST, Peking University Beijing, China <a href="mail
 <p>encode the neighbors</p>
 </li>
 </ul>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 436px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 27.22222222222222%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAFCAYAAABFA8wzAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAuElEQVQY022PSQqEUAxEvf89PIAHcCOCLsSViktxAEUQFVFwek0Cv9GmA5+qn6FSsQDu+xZg33eO41Csqoq2bTUfRRFJkmit73vlEud50jQN27ZhdCwjJmjbNmmaUhQFcRzjOA7jONJ1HWVZal8Yhvi+zzRNuK6r3My/BGWbDAqamOeZZVkIggDP86jrWvPiXJyt6/rtNTrW8/MsXtelfBgG8jxXJ1mW8S+eV75O/veMY0HDf3ueDj+MDn8RhNYGZwAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="8.png"
+        title="8.png"
+        src="/static/252e71d33ed35115d8d3e3e5298c4faf/8574c/8.png"
+        srcset="/static/252e71d33ed35115d8d3e3e5298c4faf/e9ff0/8.png 180w,
+/static/252e71d33ed35115d8d3e3e5298c4faf/f21e7/8.png 360w,
+/static/252e71d33ed35115d8d3e3e5298c4faf/8574c/8.png 436w"
+        sizes="(max-width: 436px) 100vw, 436px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+<ul>
+<li>𝑊g is the weigh of a fullt -connected layer and A is a normalized adjacency matrix of G</li>
+</ul>
 <h3 id="32-ast-reader" style="position:relative;"><a href="#32-ast-reader" aria-label="32 ast reader permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>3.2 AST Reader</h3>
 <ul>
 <li>Encode the partial generated AST of the edit (TreeGen)</li>
-<li>Rule requence
+<li>Rule sequence
 <ul>
 <li>represented as real-value vectors</li>
 <li>fed into a self-attention layer</li>
@@ -428,13 +457,19 @@ Key Laboratory of HCST, MoE DCST, Peking University Beijing, China <a href="mail
 <li>Two fully-connected layers are followed to extract features for edit decoder</li>
 </ul>
 <h3 id="34-edit-decoder" style="position:relative;"><a href="#34-edit-decoder" aria-label="34 edit decoder permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>3.4 Edit Decoder</h3>
-<p>Input : tree path reader의 아웃풋</p>
-<p>output : the probability of choices for diferent non-terminals</p>
 <h4 id="341-provider" style="position:relative;"><a href="#341-provider" aria-label="341 provider permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>3.4.1 Provider</h4>
+<ul>
+<li>
+<p>Input : tree path reader의 아웃풋</p>
+</li>
+<li>
+<p>output : the probability of choices for different non-terminals</p>
+</li>
+</ul>
 <p><strong>Rule Predictor</strong></p>
 <ul>
 <li>Estimate the probability of each production rule in the grammar of edits</li>
-<li>Nueral component (a fully-connected layer)</li>
+<li>Neural component (a fully-connected layer)</li>
 <li>Normalized via softmax</li>
 <li>Invalid rules whose left-hand side is not the corresponding non-terminal are not allowed</li>
 <li>The logic component resets the output of the fully-connected layer to -∞.</li>
@@ -442,7 +477,7 @@ Key Laboratory of HCST, MoE DCST, Peking University Beijing, China <a href="mail
 <p><strong>Tree Copier</strong></p>
 <ul>
 <li>Designed for any non-terminal symbol in the grammer of edits to choose a subtree in the local context</li>
-<li>Nueral component (a pointer network)</li>
+<li>Neural component (a pointer network)</li>
 <li>The logic component resets  𝜽 to −∞ if the root symbol of the corresponding subtree is different from the symbol being expanded.</li>
 <li>Normalized via softmax</li>
 </ul>
@@ -461,5 +496,126 @@ Key Laboratory of HCST, MoE DCST, Peking University Beijing, China <a href="mail
 <li>Logic component resets 𝝀 to −∞ if the corresponding provider is not responsible for the symbol being expanded following Table 1.</li>
 <li>Normalized via softmax</li>
 </ul>
-<h3 id="35-training-and-inference" style="position:relative;"><a href="#35-training-and-inference" aria-label="35 training and inference permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>3.5 Training and Inference</h3>
-<h3 id="36-patch-generation-and-validation" style="position:relative;"><a href="#36-patch-generation-and-validation" aria-label="36 patch generation and validation permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>3.6 Patch Generation and Validation</h3></div></div><div class="post-navigator"><div class="post-navigator-card-wrapper"><a class="post-card prev" href="/TreeGen/"><div class="direction">이전 글</div><div class="title">TreeGen</div></a></div><div class="post-navigator-card-wrapper"><a class="post-card next" href="/Luke-15/"><div class="direction">다음 글</div><div class="title">I-GBS 묵상문 (누가복음 15장)</div></a></div></div><div class="utterances"></div></main><footer class="page-footer-wrapper"><p class="page-footer">© <!-- -->2023<!-- --> <a href="https://github.com/DolmaengC">최준혁</a> powered by<a href="https://github.com/zoomKoding/zoomkoding-gatsby-blog"> zoomkoding-gatsby-blog</a></p></footer><div class="dark-mode-button-wrapper"><button class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium dark-mode-button css-1yxmbwk" tabindex="0" type="button"><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeLarge dark-mode-icon css-6flbmm" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="DarkModeIcon"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"></path></svg></button></div></div></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/recoder/";window.___webpackCompilationHash="c57506f73f5c180f6874";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"polyfill":["/polyfill-d67db2e4253c172b132e.js"],"app":["/app-c1f4041d039641d77e15.js"],"component---cache-caches-gatsby-plugin-offline-app-shell-js":["/component---cache-caches-gatsby-plugin-offline-app-shell-js-d9d77d52b32de3a8328c.js"],"component---src-pages-404-js":["/component---src-pages-404-js-908e2884cc8b680a532e.js"],"component---src-pages-about-js":["/component---src-pages-about-js-c66998e6bcb59a9595fa.js"],"component---src-pages-index-js":["/component---src-pages-index-js-029a99248450ee5ede58.js"],"component---src-templates-blog-template-js":["/component---src-templates-blog-template-js-c2d7db1194c3e7a3cc8f.js"],"component---src-templates-category-template-js":["/component---src-templates-category-template-js-a1350c63b282c4b515bc.js"]};/*]]>*/</script><script src="/polyfill-d67db2e4253c172b132e.js" nomodule=""></script><script src="/app-c1f4041d039641d77e15.js" async=""></script><script src="/framework-6d4582890c33b00a6f24.js" async=""></script><script src="/webpack-runtime-f2bebefcdcb6dda1c07e.js" async=""></script></body></html>
+<h2 id="5-experimental-results" style="position:relative;"><a href="#5-experimental-results" aria-label="5 experimental results permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>5 EXPERIMENTAL RESULTS</h2>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 720px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 30.555555555555554%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAGCAYAAADDl76dAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAzUlEQVQY01WQRw7DQAwD9/9fdO+92xcXKBgFMpIDsSJVl+55HrnvW67rkvM89d33XZqmUdR1rSjL8uVVVclxHG+fAe66rpMoiiTLMknTVGPeIAjE9/0/kPM8TxGGofIkSSSOY+UscsMw6NZt23Truq564bIsGqMBNGpo6vv+vZb+eZ41nqbpO7BtWxUZYINIkiM2Hc2soGccR+0DLKHOkeC7tgluS9hK4S/wEpt48zzXi6kjRncMYSCC+UiML/gIR4cT4xW+FUWhF/6CCz/8XMFrQW+TxQAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="table2.png"
+        title="table2.png"
+        src="/static/655409539e22fa899b79f57a3aeaa19f/37523/table2.png"
+        srcset="/static/655409539e22fa899b79f57a3aeaa19f/e9ff0/table2.png 180w,
+/static/655409539e22fa899b79f57a3aeaa19f/f21e7/table2.png 360w,
+/static/655409539e22fa899b79f57a3aeaa19f/37523/table2.png 720w,
+/static/655409539e22fa899b79f57a3aeaa19f/302a4/table2.png 1080w,
+/static/655409539e22fa899b79f57a3aeaa19f/07a9c/table2.png 1440w,
+/static/655409539e22fa899b79f57a3aeaa19f/09096/table2.png 2104w"
+        sizes="(max-width: 720px) 100vw, 720px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+<hr>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 720px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 44.99999999999999%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAABYlAAAWJQFJUiTwAAABRElEQVQoz02Sia6CUAxE/f/fIyKKIuKCgGziwibzcppAnklpbzudbq4kqW1bOY6jw+Gg+/2u7XZrwvtyuWiz2Zjs93sdj0fDRlEk3/e1Xq+12+00TRNUWo3jqMfjofP5rNvtpuv1qiAIdDqdLAkhFoahxbEhxcZHHJ3nuZEaoeu61k1RFPI8z7qjM4BUpwj+NE2tGNg4jq07iMGANUI+AKg0DIN+v5++368o1Pe92aykaRqL40N3XWfrwaYQGBuZD9UZY054vV5mQ/Z+v/X5fGwkfCRChmZ88HQLZiFkZBL4AYBkJgSIngl5I5DSBHhivBdCLsjFZmBd15bMmHQLITbJcwFwVVUt61gI2RVL5S9RlqWBkiTR8/m062dZZsfiMPh4I+DYPZpdou0oHAEHSYxKdxDTGSBkJqeT/z52h4+ReUP4B9GzqDUnrb2JAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="table3.png"
+        title="table3.png"
+        src="/static/20054d9e28c907a678053c00f255f922/37523/table3.png"
+        srcset="/static/20054d9e28c907a678053c00f255f922/e9ff0/table3.png 180w,
+/static/20054d9e28c907a678053c00f255f922/f21e7/table3.png 360w,
+/static/20054d9e28c907a678053c00f255f922/37523/table3.png 720w,
+/static/20054d9e28c907a678053c00f255f922/00172/table3.png 1044w"
+        sizes="(max-width: 720px) 100vw, 720px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+<hr>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 720px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 42.77777777777778%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAABYlAAAWJQFJUiTwAAABSklEQVQozz2Rh66CUBBE+f9fM0aCUbFiRUGxYUecl7Mvy00IW2ZntgR5nqvVammxWGgymajdbmswGGg6nWo4HCqOY/P7/b56vZ7h8Lvdrvnj8Vjz+Vyfz0e8YL1eC1I+EtvtVrvdzuzVaqXlcqnD4WD/zWajLMuMFN/x4OCBNOh0Otrv90ZIRxTg0+FsNlOSJCqKwkgghJwY0xBDHBxfVVUKRqORTqeT6rrW6/Wy4O/30/f71f1+tzFQfjweer/fFueVZWl/fHLU2sjs5ng8GtHlcmmKAFCEEITX61XP59Ns8mAR9tztdvsnjKKoKYLECRGgQ4qIeYe+fAicEGGfJuBiLBYC78DHRgAxiJyMPw+s57CbkcMwtCuhwqXO57OpswYWjjIjYRPDBpumaZPjoBwLgYDuALATghAC4lBcF9tzxLDd9zqEyHHlP/tTqeU9FbuZAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="table4.png"
+        title="table4.png"
+        src="/static/8a8f507e2597a32aa51828c06aea86f6/37523/table4.png"
+        srcset="/static/8a8f507e2597a32aa51828c06aea86f6/e9ff0/table4.png 180w,
+/static/8a8f507e2597a32aa51828c06aea86f6/f21e7/table4.png 360w,
+/static/8a8f507e2597a32aa51828c06aea86f6/37523/table4.png 720w,
+/static/8a8f507e2597a32aa51828c06aea86f6/d69c4/table4.png 1002w"
+        sizes="(max-width: 720px) 100vw, 720px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+<hr>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 720px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 59.44444444444444%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAABYlAAAWJQFJUiTwAAABnElEQVQoz1WSh6oCQQxF9///SxEULIgFdu3dLbprb/dxAhl4wjIT5+bkJjPR7/cTv/F4rFqtpslkouFwqFarpXa7rdFopMFgoH6/b1+n01G9XrezbrerZrOpJEmM8f1+FZVlabDtdqvb7aaqqpSmqabTqeI41mKx0G63s3i5XJpuPp9rs9kYiBgde/IjALPZzEDP51P3+13n81nH49HcksCeJEDsAe/3ezvP89zyKWgOAXFQFEWw/Xq9bH84HGzFMRC+LMsM+ng8DPL5fCz2/OhyuajX61nbtId1HAIG8H6/rRV3iiN01+vVnFGckXBmQMQMd71eWyItU53KOANMDJzYW0TLf+iYJwUDkFvl1qjEj1kipA1eAUVwBQz3JNPZarWyDog9N3LriB3kKzN0h+x5EQBxBJAiAOkuOORSeGtUowoC5gKQGIcUIOF0OgUgrn3GxMEhgkajEW4UGGJWIKyMBTfcMFAc4RAg7oFh6J9DxJ6MmFHw7jymMCvvj/8B+/slZm/vkAQXcOhzcifEfsZHJzjHAK26Dgaj+QOeQIaVAgMzWQAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="table5.png"
+        title="table5.png"
+        src="/static/ef1e090c94eb62e33fa6b792ffcdbc69/37523/table5.png"
+        srcset="/static/ef1e090c94eb62e33fa6b792ffcdbc69/e9ff0/table5.png 180w,
+/static/ef1e090c94eb62e33fa6b792ffcdbc69/f21e7/table5.png 360w,
+/static/ef1e090c94eb62e33fa6b792ffcdbc69/37523/table5.png 720w,
+/static/ef1e090c94eb62e33fa6b792ffcdbc69/5b587/table5.png 1010w"
+        sizes="(max-width: 720px) 100vw, 720px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+<hr>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 720px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 27.77777777777778%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAGCAYAAADDl76dAAAACXBIWXMAABYlAAAWJQFJUiTwAAAA9UlEQVQY0z2Qx46DUAxF+f8vY5ENoqPQEU2ht0QsPDqWmMWTLZdz77PRdZ2YpilpmkqWZRKGoTiOI77vSxzHUpal2LYtrutKEATae7/fkiTJf/31eonnefL7/cQAWBSFfD4f6fteoVEUaQ0YjxxBcmKe51LXtQo+sxgZx1EMyE3TyLZtCmWJIcBVValT+izgEANEavSBt22rDgEr0LIsVQP6/X516b5v/QI5cZ5n/QF9Fs/zlOM49F3XpacAbHAHVPZ9VyC2cbmuq0JwsSyLDpNT435EfkE+TZPeEtcGg48aUEAMkPNYJFIbhkFFcf2IPzVgzP4B0cq6ZjhfszQAAAAASUVORK5CYII='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="table6.png"
+        title="table6.png"
+        src="/static/6d2ad966e3688b59baa819b361f853bc/37523/table6.png"
+        srcset="/static/6d2ad966e3688b59baa819b361f853bc/e9ff0/table6.png 180w,
+/static/6d2ad966e3688b59baa819b361f853bc/f21e7/table6.png 360w,
+/static/6d2ad966e3688b59baa819b361f853bc/37523/table6.png 720w,
+/static/6d2ad966e3688b59baa819b361f853bc/2c5fd/table6.png 1006w"
+        sizes="(max-width: 720px) 100vw, 720px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+<hr></div></div><div class="post-navigator"><div class="post-navigator-card-wrapper"><a class="post-card prev" href="/TreeGen/"><div class="direction">이전 글</div><div class="title">TreeGen</div></a></div><div class="post-navigator-card-wrapper"><a class="post-card next" href="/Luke-15/"><div class="direction">다음 글</div><div class="title">I-GBS 묵상문 (누가복음 15장)</div></a></div></div><div class="utterances"></div></main><footer class="page-footer-wrapper"><p class="page-footer">© <!-- -->2023<!-- --> <a href="https://github.com/DolmaengC">최준혁</a> powered by<a href="https://github.com/zoomKoding/zoomkoding-gatsby-blog"> zoomkoding-gatsby-blog</a></p></footer><div class="dark-mode-button-wrapper"><button class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium dark-mode-button css-1yxmbwk" tabindex="0" type="button"><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeLarge dark-mode-icon css-6flbmm" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="DarkModeIcon"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"></path></svg></button></div></div></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/recoder/";window.___webpackCompilationHash="c57506f73f5c180f6874";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"polyfill":["/polyfill-d67db2e4253c172b132e.js"],"app":["/app-c1f4041d039641d77e15.js"],"component---cache-caches-gatsby-plugin-offline-app-shell-js":["/component---cache-caches-gatsby-plugin-offline-app-shell-js-d9d77d52b32de3a8328c.js"],"component---src-pages-404-js":["/component---src-pages-404-js-908e2884cc8b680a532e.js"],"component---src-pages-about-js":["/component---src-pages-about-js-c66998e6bcb59a9595fa.js"],"component---src-pages-index-js":["/component---src-pages-index-js-029a99248450ee5ede58.js"],"component---src-templates-blog-template-js":["/component---src-templates-blog-template-js-c2d7db1194c3e7a3cc8f.js"],"component---src-templates-category-template-js":["/component---src-templates-category-template-js-a1350c63b282c4b515bc.js"]};/*]]>*/</script><script src="/polyfill-d67db2e4253c172b132e.js" nomodule=""></script><script src="/app-c1f4041d039641d77e15.js" async=""></script><script src="/framework-6d4582890c33b00a6f24.js" async=""></script><script src="/webpack-runtime-f2bebefcdcb6dda1c07e.js" async=""></script></body></html>
