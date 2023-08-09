@@ -4,7 +4,7 @@ title: Fast and Precise On-the-fly Patch Validation for All
 date: '2023-07-22 02:00:00'
 author: DolmaengC
 tags: APR bytecode
-categories: APR bytecode
+categories: APR bytecode featured
 ---
 
 ### CITES

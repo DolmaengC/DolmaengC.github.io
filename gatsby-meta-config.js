@@ -2,11 +2,11 @@ module.exports = {
   title: `DolmaengC`,
   description: `돌맹씨의 개발일기`,
   language: `ko`, // `ko`, `en` => currently support versions for Korean and English
-  siteUrl: `https://dolmaengc.github.io/gatsby-blog`,
+  siteUrl: `https://dolmaengc.github.io/DolmaengC.github.io`,
   ogImage: `/og-image.png`, // Path to your in the 'static' folder
   comments: {
     utterances: {
-      repo: `DolmaengC/gatsby-blog`, // `zoomkoding/zoomkoding-gatsby-blog`,
+      repo: `DolmaengC/DolmaengC.github.io`, // `zoomkoding/zoomkoding-gatsby-blog`,
     },
   },
   ga: '0', // Google Analytics Tracking ID
@@ -47,7 +47,7 @@ module.exports = {
         activity: '개인 블로그 운영',
         links: {
           post: '/gatsby-starter-zoomkoding-introduction',
-          github: 'https://github.com/zoomkoding/zoomkoding-gatsby-blog',
+          github: 'https://github.com/DolmaengC/DolmaengC.github.io',
           demo: 'https://www.zoomkoding.com',
         },
       },
@@ -79,8 +79,8 @@ module.exports = {
         thumbnailUrl: 'blog.png',
         links: {
           post: '/gatsby-starter-zoomkoding-introduction',
-          github: 'https://github.com/DolmaengC/gatsby-blog',
-          demo: 'https://www.zoomkoding.com',
+          github: 'https://github.com/DolmaengC/DolmaengC.github.io',
+          demo: 'http://dolmaengC.github.io',
         },
       },
     ],

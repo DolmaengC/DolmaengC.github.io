@@ -57,6 +57,8 @@ Qihao Zhu, Zeyu Sun, Yuan-an Xiao, Wenjie Zhang, Kang Yuan, Yingfei Xiong, and L
 
 
 
+
+
 ## 1. INTRODUCTION
 
 DL 기반 APR 접근 방식은 아직 기존 APR 접근 방식을 능가하지 못했습니다.
@@ -65,23 +67,25 @@ DL 기반 APR 접근 방식은 아직 기존 APR 접근 방식을 능가하지 �
 
 
 
-### Limitation 1: Including syntactically incorrect programs in the patch space.
+**Limitation 1: Including syntactically incorrect programs in the patch space.**
 
 
 
-### Limitation 2: Inefficient representation of small edits.
+**Limitation 2: Inefficient representation of small edits.**
 
 
 
-### Limitation 3: Not being able to generate project-specific identifiers.
+**Limitation 3: Not being able to generate project-specific identifiers.**
 
 
 
-### Novelty 1: Syntax-Guided Edit Decoding with Provider/Decider Architecture
+**Novelty 1: Syntax-Guided Edit Decoding with Provider/Decider Architecture**
 
 
 
-### Novelty 2: Placeholder Generation
+**Novelty 2: Placeholder Generation**
+
+
 
 
 
@@ -369,7 +373,8 @@ output : an ID of the subtree in the faulty statement for not-terminal symbol, M
 
 
 
-
+```toc
+```
 
 
 
