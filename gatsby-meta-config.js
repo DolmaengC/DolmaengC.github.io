@@ -13,8 +13,8 @@ module.exports = {
   author: {
     name: `최준혁`,
     bio: {
-      role: `개발자`,
-      description: ['세상을 바꾸는', '즐겁게 공부하는', '배워서 남주는'],
+      role: `대학생`,
+      description: ['소통하는', '성장하는', '꽤나 유쾌한'],
       thumbnail: 'sample.png', // Path to the image in the 'asset' folder
     },
     social: {

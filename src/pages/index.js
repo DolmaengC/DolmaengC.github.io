@@ -4,7 +4,6 @@ import Layout from '../layout';
 import Seo from '../components/seo';
 import Bio from '../components/bio';
 import Post from '../models/post';
-import Bible from '../models/bible';
 
 import { getUniqueCategories } from '../utils/helpers';
 import PostTabs from '../components/post-tabs';
