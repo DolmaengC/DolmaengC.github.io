@@ -1,7 +1,8 @@
 <p class="meta">
   <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
   {{ with .Params.tags }}
-    ·
-    {{ range $index, $tag := . }}{{ if gt $index 0 }}, {{ end }}#{{ $tag }}{{ end }}
+    {{ range . }}
+      <a class="tag-pill" href="{{ "/tags/" | relURL }}{{ . | urlize }}/">#{{ . }}</a>
+    {{ end }}
   {{ end }}
 </p>

@@ -1,13 +1,32 @@
 {{ define "main" }}
+
   <section class="hero">
     <p class="eyebrow">Developer Blog</p>
     <h1>{{ site.Title }}</h1>
     <p>{{ site.Params.description }}</p>
   </section>
 
+  <section class="section-grid">
+    <a class="section-card" href="/posts/">
+      <span class="sc-icon">✍️</span>
+      <span class="sc-title">Posts</span>
+      <span class="sc-desc">개발 기록과 학습 메모</span>
+    </a>
+    <a class="section-card" href="/troubleshooting/">
+      <span class="sc-icon">🔧</span>
+      <span class="sc-title">Troubleshooting</span>
+      <span class="sc-desc">문제 증상 · 원인 · 해결</span>
+    </a>
+    <a class="section-card" href="/projects/">
+      <span class="sc-icon">🗂️</span>
+      <span class="sc-title">Projects</span>
+      <span class="sc-desc">진행 중인 프로젝트 로그</span>
+    </a>
+  </section>
+
   <section class="post-list">
     <h2>최근 글</h2>
-    {{ range first 5 (where site.RegularPages "Section" "posts") }}
+    {{ range first 6 site.RegularPages.ByDate.Reverse }}
       <article class="card">
         <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
         {{ partial "post-meta.html" . }}
@@ -15,4 +34,5 @@
       </article>
     {{ end }}
   </section>
+
 {{ end }}

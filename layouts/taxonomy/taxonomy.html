@@ -1,0 +1,19 @@
+{{ define "main" }}
+
+  <section class="page-header">
+    <p class="eyebrow">Taxonomy</p>
+    <h1>{{ .Title }}</h1>
+    {{ with .Content }}<div class="page-intro">{{ . }}</div>{{ end }}
+  </section>
+
+  <div class="card">
+    <div class="tag-cloud">
+      {{ range .Data.Terms.ByCount }}
+        <a class="tag-pill" href="{{ .Page.RelPermalink }}">
+          #{{ .Page.Title }}<span class="tag-count">{{ .Count }}</span>
+        </a>
+      {{ end }}
+    </div>
+  </div>
+
+{{ end }}

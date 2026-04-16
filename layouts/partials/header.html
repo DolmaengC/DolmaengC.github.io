@@ -3,7 +3,7 @@
     <a class="brand" href="/">{{ site.Title }}</a>
     <nav>
       {{ range site.Menus.main }}
-        <a href="{{ .URL }}">{{ .Name }}</a>
+        <a href="{{ .URL }}"{{- if or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }} class="active"{{ end }}>{{- .Name -}}</a>
       {{ end }}
     </nav>
   </div>
