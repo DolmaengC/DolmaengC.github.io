@@ -1,0 +1,18 @@
+{{ define "main" }}
+  <section class="page-header">
+    <h1>{{ .Title }}</h1>
+    {{ with .Content }}<div class="page-intro">{{ . }}</div>{{ end }}
+  </section>
+
+  <section class="post-list">
+    {{ range .Pages }}
+      <article class="card">
+        <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+        {{ partial "post-meta.html" . }}
+        {{ with .Description }}<p>{{ . }}</p>{{ end }}
+      </article>
+    {{ else }}
+      <p>아직 글이 없습니다.</p>
+    {{ end }}
+  </section>
+{{ end }}

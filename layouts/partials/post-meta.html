@@ -1,0 +1,7 @@
+<p class="meta">
+  <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
+  {{ with .Params.tags }}
+    ·
+    {{ range $index, $tag := . }}{{ if gt $index 0 }}, {{ end }}#{{ $tag }}{{ end }}
+  {{ end }}
+</p>

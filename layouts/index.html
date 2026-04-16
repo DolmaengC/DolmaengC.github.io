@@ -1,0 +1,18 @@
+{{ define "main" }}
+  <section class="hero">
+    <p class="eyebrow">Developer Blog</p>
+    <h1>{{ site.Title }}</h1>
+    <p>{{ site.Params.description }}</p>
+  </section>
+
+  <section class="post-list">
+    <h2>최근 글</h2>
+    {{ range first 5 (where site.RegularPages "Section" "posts") }}
+      <article class="card">
+        <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+        {{ partial "post-meta.html" . }}
+        {{ with .Description }}<p>{{ . }}</p>{{ end }}
+      </article>
+    {{ end }}
+  </section>
+{{ end }}

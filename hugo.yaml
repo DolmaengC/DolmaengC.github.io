@@ -1,0 +1,38 @@
+baseURL: "https://DolmaengC.github.io/"
+languageCode: "ko-kr"
+title: "DolmaengC Dev Log"
+pagination:
+  pagerSize: 10
+
+params:
+  author: "DolmaengC"
+  description: "개발 기록, 트러블슈팅, 프로젝트 로그"
+  github: "https://github.com/DolmaengC"
+  email: "you@example.com"
+
+menu:
+  main:
+    - name: "Posts"
+      pageRef: "/posts"
+      weight: 10
+    - name: "Troubleshooting"
+      pageRef: "/troubleshooting"
+      weight: 20
+    - name: "Projects"
+      pageRef: "/projects"
+      weight: 30
+    - name: "About"
+      pageRef: "/about"
+      weight: 40
+
+taxonomies:
+  tag: "tags"
+  category: "categories"
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  highlight:
+    style: "github"
+    lineNos: true

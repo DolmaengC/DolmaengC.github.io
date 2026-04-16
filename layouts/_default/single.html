@@ -1,0 +1,9 @@
+{{ define "main" }}
+  <article class="card post">
+    <h1>{{ .Title }}</h1>
+    {{ partial "post-meta.html" . }}
+    <div class="content">
+      {{ .Content }}
+    </div>
+  </article>
+{{ end }}
